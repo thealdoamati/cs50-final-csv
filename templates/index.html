@@ -6,7 +6,8 @@ CSV Importer
 
 {% block main %}
 <div>
-    <form action="/upload">
+    <h3>Import CSV:</h3>
+    <form action="/upload" method="POST">
         <input name="file" type="file">
         <button type="submit">Send</button>
     </form>
