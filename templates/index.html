@@ -1,11 +1,14 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    CSV Importer
+CSV Importer
 {% endblock %}
-<div>
-    <h3>Teste</h3>
-</div>
 
 {% block main %}
+<div>
+    <form action="/upload">
+        <input name="file" type="file">
+        <button type="submit">Send</button>
+    </form>
+</div>
 {% endblock %}
