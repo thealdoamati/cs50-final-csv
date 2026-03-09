@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request
-import csv
 from helpers import check_csv, create_mockup
 import pandas as pd
 

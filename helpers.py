@@ -1,4 +1,3 @@
-from flask import render_template
 import os
 
 risky_headers = [
