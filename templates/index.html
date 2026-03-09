@@ -7,7 +7,7 @@ CSV Importer
 {% block main %}
 <div>
     <h3>Import CSV:</h3>
-    <form action="/upload" method="POST">
+    <form action="/upload" method="POST" enctype="multipart/form-data">
         <input name="file" type="file">
         <button type="submit">Send</button>
     </form>
