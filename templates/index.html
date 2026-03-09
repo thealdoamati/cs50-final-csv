@@ -5,11 +5,60 @@ CSV Importer
 {% endblock %}
 
 {% block main %}
-<div>
-    <h3>Import CSV:</h3>
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input name="file" type="file">
-        <button type="submit">Send</button>
-    </form>
+
+<div class="card upload-card p-4">
+    <div class="card-body">
+
+        <h3 class="upload-header">📊 Upload & Transform Your CSV</h3>
+        <p class="upload-subtext">
+            Describe what you want to do with your data in plain English.
+            No SQL, no formulas — just tell us what you need.
+        </p>
+
+        <hr class="my-4">
+
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+
+            <div class="mb-4">
+                <label for="action" class="form-label fw-semibold">
+                    What would you like to do?
+                </label>
+                <input 
+                    name="action" 
+                    id="action"
+                    type="text" 
+                    class="form-control"
+                    placeholder="Example: Remove duplicate rows and calculate total sales by region"
+                    required
+                >
+                <div class="form-text">
+                    Be as specific as possible. You can describe filters, calculations, summaries, or formatting.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="file" class="form-label fw-semibold">
+                    Upload your CSV file
+                </label>
+                <input 
+                    class="form-control" 
+                    type="file" 
+                    id="file" 
+                    name="file" 
+                    accept=".csv" 
+                    required
+                >
+                <div class="form-text">
+                    Only .csv files are supported
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary submit-btn">
+                Process File
+            </button>
+
+        </form>
+    </div>
 </div>
+
 {% endblock %}

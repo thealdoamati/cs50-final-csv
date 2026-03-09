@@ -1,0 +1,47 @@
+.upload-card {
+        max-width: 700px;
+        margin: 40px auto;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    }
+
+    .upload-header {
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .upload-subtext {
+        color: #6c757d;
+        font-size: 0.95rem;
+    }
+
+    .file-drop-area {
+        border: 2px dashed #ced4da;
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        background-color: #f8f9fa;
+        transition: 0.2s ease-in-out;
+        cursor: pointer;
+    }
+
+    .file-drop-area:hover {
+        border-color: #0d6efd;
+        background-color: #eef4ff;
+    }
+
+    .file-drop-area input {
+        display: none;
+    }
+
+    .file-label {
+        font-weight: 500;
+        color: #0d6efd;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 10px;
+        font-weight: 500;
+        border-radius: 10px;
+    }
