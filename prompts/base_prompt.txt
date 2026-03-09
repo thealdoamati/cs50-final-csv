@@ -1,0 +1,70 @@
+You are a senior Python developer.
+
+Your task is to generate a complete, production-ready Python script.
+
+--------------------------------------------------
+CONTEXT
+--------------------------------------------------
+
+A CSV file exists inside the folder "input_csv".
+
+The CSV header columns are:
+{header}
+
+Example rows from the CSV:
+{examples}
+
+--------------------------------------------------
+TASK
+--------------------------------------------------
+
+Based on this CSV structure, create a Python script that performs the following action:
+{action}
+
+--------------------------------------------------
+REQUIREMENTS
+--------------------------------------------------
+
+1. The script must:
+   - Read the CSV file from the folder "input_csv".
+   - Dynamically handle the provided column structure.
+   - Implement the requested action correctly.
+   - Export the processed data into the folder "output_files".
+
+2. The output must include:
+   - One CSV file
+   - One XLSX file
+
+3. Use:
+   - pandas for data handling
+   - openpyxl (if needed) for XLSX export
+
+4. If the folder "output_files" does not exist, the script must create it automatically.
+
+5. The script must include proper error handling for:
+   - Missing input file
+   - Invalid CSV format
+
+--------------------------------------------------
+USAGE INSTRUCTIONS
+--------------------------------------------------
+
+At the top of the script, include a clear multiline comment explaining:
+
+- Required Python version
+- Required libraries
+- How to install dependencies (pip install ...)
+- Expected folder structure
+- How to run the script from terminal
+
+--------------------------------------------------
+TECHNICAL CONSTRAINTS
+--------------------------------------------------
+
+- The script must be runnable as a standalone file.
+- Include all necessary imports.
+- Use `if __name__ == "__main__":`
+- Do not include explanations outside the code.
+- Output only valid Python code.
+
+Return only the final Python script.
