@@ -42,46 +42,44 @@ risky_headers = [
 
 def check_csv(file):
     if not file:
-        return render_template("index.html")
+        return False
         
     _, extension = os.path.splitext(file.filename)
 
     if extension != ".csv":
         print("Only csv")
-        return render_template("index.html")
+        return False
+    else:
+        return True
     
-def create_mockup(reader):
-    rows = []
-    # Get header and 4 examples
-    for i, row in enumerate(reader):
-        if i == 4:
-            break
-        rows.append(row)
-    
-    header = rows[0]
+def create_mockup(df):
+    # Get 4 rows as example
+    sample_df = df.head(4).copy()
+
+    header = list(sample_df.columns)
     new_examples = []
-    
-    for example in rows:            
-        new_example = []
-        
-        for col_index, cell in enumerate(example):
-            
-            # If this column header is risky
-            if header[col_index].lower in risky_headers:
-                new_cell = "X"   
-                             
+
+    new_examples.append(header)
+
+    for _, row in sample_df.iterrows():
+        new_row = []
+
+        for column in sample_df.columns:
+            cell = row[column]
+            cell_str = str(cell)
+
+            if column.lower() in risky_headers:
+                new_cell = "X"
             else:
-                new_cell = "" 
-                for character in cell:
-                    new_character = ""
+                new_cell = ""
+                for character in cell_str:
                     if character.isdigit():
-                        new_character = "X"
+                        new_cell += "X"
                     else:
-                        new_character = character
-                    new_cell += new_character
-                    
-            new_example.append(new_cell)
-            
-        new_examples.append(new_example)
-        
+                        new_cell += character
+
+            new_row.append(new_cell)
+
+        new_examples.append(new_row)
+
     return new_examples

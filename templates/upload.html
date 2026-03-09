@@ -6,6 +6,30 @@ CSV
 
 {% block main %}
 <div>
-    <h3>Imported file:</h3>
+    {% if new_examples %}
+    <div class="mt-4">
+        <h4>CSV Preview (Masked)</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-sm">
+                <thead class="table-dark">
+                    <tr>
+                        {% for cell in new_examples[0] %}
+                        <th>{{ cell }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in new_examples[1:] %}
+                    <tr>
+                        {% for cell in row %}
+                        <td>{{ cell }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
