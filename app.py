@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
-import os
 import csv
+from helpers import check_csv
 
 app = Flask(__name__)
 
@@ -12,16 +12,8 @@ def index():
 def upload():
     if request.method == "POST":
         file = request.files.get("file")
+        check_csv(file)
 
-        if not file:
-            return render_template("index.html")
-        
-        _, extension = os.path.splitext(file.filename)
-
-        if extension != ".csv":
-            print("Only csv")
-            return render_template("index.html")
-        
         reader = csv.reader(file.stream.read().decode("utf-8").splitlines())
         rows = []
         for row in reader:
