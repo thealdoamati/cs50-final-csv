@@ -6,7 +6,7 @@ Your task is to generate a complete, production-ready Python script.
 CONTEXT
 --------------------------------------------------
 
-A CSV file exists inside the folder "input_csv".
+A CSV file named csv_file exists inside the folder "input_csv".
 
 The CSV header columns are:
 {header}

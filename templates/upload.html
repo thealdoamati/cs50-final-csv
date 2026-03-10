@@ -1,15 +1,25 @@
 {% extends "layout.html" %}
 
 {% block title %}
-CSV
+Confirm CSV
 {% endblock %}
 
 {% block main %}
-<div>
-    {% if new_examples %}
-    <div class="mt-4">
-        <h4>CSV Preview (Masked)</h4>
-        <div class="table-responsive">
+
+<div class="card p-4">
+    <div class="card-body">
+
+        <h3 class="mb-3">📄 Confirm CSV</h3>
+
+        {% if action %}
+        <div class="alert alert-info">
+            <strong>Requested Action:</strong><br>
+            {{ action }}
+        </div>
+        {% endif %}
+
+        {% if new_examples %}
+        <div class="table-responsive mb-4">
             <table class="table table-bordered table-striped table-sm">
                 <thead class="table-dark">
                     <tr>
@@ -29,7 +39,17 @@ CSV
                 </tbody>
             </table>
         </div>
+
+        <form action="/process" method="POST">
+            <input type="hidden" name="new_examples" value='{{ new_examples | tojson | safe }}'>
+            <button type="submit" class="btn btn-success">
+                Confirm & Process
+            </button>
+        </form>
+
+        {% endif %}
+
     </div>
-    {% endif %}
 </div>
+
 {% endblock %}
