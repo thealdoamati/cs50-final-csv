@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, send_file
+from flask import Flask, render_template, request, session, redirect, send_file, after_this_request
 from helpers import check_csv, create_mockup
 import pandas as pd
 import tempfile
@@ -34,7 +34,7 @@ def upload():
         saved_path = UPLOAD_FOLDER / file.filename
         file.save(saved_path)
         
-        df = pd.read_csv(saved_path)
+        df = pd.read_csv(saved_path, dtype=str)
         new_examples = create_mockup(df)
         
         # Store it in session
@@ -107,6 +107,18 @@ def process():
                     zipf.write(file, file.relative_to(temp_dir_path))
 
             zip_buffer.seek(0)
+            
+            # Removing original file
+            @after_this_request
+            def delete_file(response):
+                try:
+                    os.remove(file_path)
+                except Exception as e:
+                    print("Error deleting file:", e)
+                
+                session.pop("file_path", None)
+                session.pop("action", None)
+                return response         
 
             return send_file(
                 zip_buffer,
