@@ -118,7 +118,7 @@ def process():
                 
                 session.pop("file_path", None)
                 session.pop("action", None)
-                return response         
+                return response  
 
             return send_file(
                 zip_buffer,

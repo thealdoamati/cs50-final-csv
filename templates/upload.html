@@ -42,9 +42,16 @@ Confirm CSV
 
         <form action="/process" method="POST">
             <input type="hidden" name="new_examples" value='{{ new_examples | tojson | safe }}'>
-            <button type="submit" class="btn btn-success">
-                Confirm & Process
-            </button>
+
+            <div class="d-flex justify-content-center gap-3 mt-3">
+                <button type="submit" class="btn btn-success px-4">
+                    Confirm & Process
+                </button>
+
+                <a href="/" class="btn btn-secondary px-4">
+                    Upload Other File
+                </a>
+            </div>
         </form>
 
         {% endif %}
