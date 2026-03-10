@@ -6,7 +6,7 @@ Your task is to generate a complete, production-ready Python script.
 CONTEXT
 --------------------------------------------------
 
-A CSV file named csv_file exists inside the folder "input_csv".
+A CSV file named "csv_file.csv" exists inside the folder "input_csv".
 
 The CSV header columns are:
 {header}
@@ -18,32 +18,37 @@ Example rows from the CSV:
 TASK
 --------------------------------------------------
 
-Based on this CSV structure, create a Python script that performs the following action:
+Based strictly on this CSV structure, create a Python script that performs the following action:
+
 {action}
 
 --------------------------------------------------
-REQUIREMENTS
+GENERAL RULES
 --------------------------------------------------
 
 1. The script must:
-   - Read the CSV file from the folder "input_csv".
+   - Read the CSV file from "input_csv/csv_file.csv".
    - Dynamically handle the provided column structure.
-   - Implement the requested action correctly.
-   - Export the processed data into the folder "output_files".
+   - Implement exactly what is described in the action.
+   - Place all generated outputs inside the folder "output_files".
 
-2. The output must include:
-   - One CSV file
-   - One XLSX file
+2. The script must adapt its output format according to the requested action:
+   - If the action involves exporting a spreadsheet or table file, generate BOTH:
+        • A CSV file
+        • An XLSX file
+   - If the action specifies another format (e.g., JSON, TXT, etc.), export accordingly.
+   - Do NOT generate unnecessary formats that were not requested.
 
-3. Use:
-   - pandas for data handling
-   - openpyxl (if needed) for XLSX export
+3. If the folder "output_files" does not exist, the script must create it automatically.
 
-4. If the folder "output_files" does not exist, the script must create it automatically.
-
-5. The script must include proper error handling for:
+4. The script must include proper error handling for:
    - Missing input file
    - Invalid CSV format
+   - Missing required columns referenced in the action
+
+5. Use:
+   - pandas for data handling
+   - openpyxl only if XLSX export is required
 
 --------------------------------------------------
 USAGE INSTRUCTIONS

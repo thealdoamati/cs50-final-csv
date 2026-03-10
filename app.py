@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, send_file
 from helpers import check_csv, create_mockup
 import pandas as pd
 import tempfile
@@ -6,6 +6,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 import shutil
+import zipfile
+from io import BytesIO
 
 load_dotenv()
 
@@ -51,7 +53,6 @@ def process():
         df = pd.read_csv(file_path)
         header = list(df)
         examples = create_mockup(df)
-        
         new_header = ", ".join(header)
         
         examples_rows = []
@@ -60,18 +61,59 @@ def process():
             examples_rows.append(new_row)
         new_examples = "\n".join(examples_rows)
         
+        base_prompt_path = "prompts/base_prompt.txt"
+        
+        with open(base_prompt_path, "r") as file:
+            content = file.read()
+            prompt_text = content.format(
+                header=new_header,
+                examples=new_examples,
+                action=action
+            )
+        
         
         with tempfile.TemporaryDirectory() as tmpdirname:
             temp_dir_path = Path(tmpdirname)
             
             input_folder = temp_dir_path / "input_csv"
             output_folder = temp_dir_path / "output_files"
+            prompt_file_path = temp_dir_path / "prompt.txt"
             
             input_folder.mkdir()
             output_folder.mkdir()
+            prompt_file_path.write_text(prompt_text)
+            
+            script_path = temp_dir_path / "script.py"
+
+            script_content = """\
+            # PASTE THE GENERATED PYTHON SCRIPT FROM YOUR LLM BELOW THIS LINE.
+
+            # The script must follow the instructions described in prompt.txt.
+
+            if __name__ == "__main__":
+                print("Replace this file with your generated script.")
+            """
+
+            script_path.write_text(script_content)
             
             csv_destination = input_folder / "csv_file.csv"
             shutil.copy(file_path, csv_destination)
+            
+            # Creating zip and managing time before deleting temp folder
+            zip_buffer = BytesIO()
+
+            with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zipf:
+                for file in temp_dir_path.rglob("*"):
+                    zipf.write(file, file.relative_to(temp_dir_path))
+
+            zip_buffer.seek(0)
+
+            return send_file(
+                zip_buffer,
+                as_attachment=True,
+                download_name="project_package.zip",
+                mimetype="application/zip"
+            )
              
         return render_template("process.html")
     else:  
