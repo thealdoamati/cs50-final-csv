@@ -130,4 +130,7 @@ def process():
         return render_template("process.html")
     else:  
         return render_template("process.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
     
